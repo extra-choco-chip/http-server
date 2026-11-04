@@ -60,6 +60,25 @@ int main(int argc, char* argv[]) {
         return -1;
     }
     cout << "Accepted connection" << endl;
+
+    char buffer[200];
+    int byteCount = recv(acceptSocket, buffer, 200, 0);
+    if(byteCount > 0){
+        cout << "Message received: " << buffer << endl;
+    }
+    else{
+        WSACleanup();
+    }
+
+    char confirmation[200] = "Message received";
+    byteCount=send(acceptSocket, confirmation, 200, 0);
+    if(byteCount > 0){
+        cout << "Automated message sent to the client: " << confirmation << endl;
+    }
+    else{
+        WSACleanup();
+    }
+
     system("pause");
     WSACleanup();
 
